@@ -13,13 +13,6 @@ JetracerをJetson Orin Nanoで動作させるためのインストール手順
 
 ## Installation
 
-- ### jetracer_orin_nanoをクローン
-
-    ```bash
-    $ git clone -b orin_nano https://github.com/DaiGuard/jetracer_orin_nano.git
-    $ cd jetracer_orin_nano
-    ```
-
 - ### Pythonバージョンの確認
 
     これ以降は`Python3.8`で操作を実施するため、ここで確認しておきます
@@ -77,6 +70,14 @@ JetracerをJetson Orin Nanoで動作させるためのインストール手順
     $ sudo apt purge python3-pip
     ```
 
+- ### jetracer_orin_nanoのインストール
+
+    ```bash
+    $ git clone -b orin_nano https://github.com/DaiGuard/jetracer_orin_nano.git
+    $ cd jetracer_orin_nano
+    $ pip install . 
+    ```
+
 
 - ### torchのインストール
 
@@ -121,12 +122,51 @@ JetracerをJetson Orin Nanoで動作させるためのインストール手順
     $ pip install git+https://github.com/NVIDIA-AI-IOT/jetcam
     ```
 
+- ### nodejs, npmのインストール
+
+    `apt`でインストールできる`node`, `npm`がとても古いため、最新をイントールする
+
+
+    ```bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+    ```
+
+    ターミナルを再起動
+
+    ```
+    nvm install --lts
+    ```
+
 - ### Jupyter-notebookのセットアップ
 
     バージョンを指定してインストールする
 
     ```bash
-    
+    pip install jupyterlab==3.4.5 notebook==6.5.6
+    pip install ipywidgets==7.7.2
+    pip install jupyter_contrib_nbextensions
+    ```
+
+    災難間、`jupyter_clickable_image_widget`をインストール
+
+    ```
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager
+    $ pip install git+https://github.com/jaybdub/jupyter_clickable_image_widget
+    $ jupyter labextension install js
+    ```
+
+    ここまでで`jupyterlab`の拡張がエラーになっていないか確認する
+
+    ```bash
+    $ jupyter labextension list
+    JupyterLab v3.4.5
+    /home/dai_guard/.local/share/jupyter/labextensions
+            jupyterlab_pygments v0.2.2 enabled OK (python, jupyterlab_pygments)
+            @jupyter-widgets/jupyterlab-manager v3.1.7 enabled OK (python, jupyterlab_widgets)
+
+    Other labextensions (built into JupyterLab)
+    app dir: /home/dai_guard/.local/share/jupyter/lab
+            js v0.1.0 enabled OK
     ```
 
     外部アクセスできるように設定を変更する
@@ -156,3 +196,7 @@ JetracerをJetson Orin Nanoで動作させるためのインストール手順
     [I 14:37:20.481 NotebookApp] http://<hostname>:8888/?token=376c7aad521f53a39aeebe2ae443d64c4ba974cb1c0e9027   
     [I 14:37:20.481 NotebookApp]  or http://127.0.0.1:8888/?token=376c7aad521f53a39aeebe2ae443d64c4ba974cb1c0e9027
     ```
+
+    `token`の欄に上記の自分自身のアクセストークンを入力してログインします
+
+    ![image](https://github.com/DaiGuard/jetracer_orin_nano/assets/26181834/f6600187-2d05-470a-9ce0-09a1dbee4ec0)
